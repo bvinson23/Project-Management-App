@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project_Management_App.Repositories
 {
-    public class UserRepository : BaseRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
         public UserRepository(IConfiguration configuration) : base(configuration) { }
 
