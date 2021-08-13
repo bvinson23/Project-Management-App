@@ -42,7 +42,7 @@ namespace Project_Management_App.Repositories
                 {
                     cmd.CommandText = @"
                          SELECT Id, FirebaseUserId, FirstName, LastName, Email
-                          FROM User
+                          FROM [User]
                     ";
                     var reader = cmd.ExecuteReader();
                     User user = null;
@@ -73,7 +73,7 @@ namespace Project_Management_App.Repositories
                 {
                     cmd.CommandText = @"
                          SELECT Id, FirebaseUserId, FirstName, LastName, Email
-                          FROM User
+                          FROM [User]
                           WHERE Id = @id
                     ";
                     DbUtils.AddParameter(cmd, "@id", id);
@@ -105,8 +105,8 @@ namespace Project_Management_App.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT Id, FirebaseUserId, FirstName, LastName, Email
-                          FROM User
-                         WHERE FirebaseUserId = @FirebaseuserId";
+                          FROM [User]
+                         WHERE FirebaseUserId = @FirebaseUserId";
 
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", firebaseUserId);
 
@@ -139,7 +139,7 @@ namespace Project_Management_App.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO User (FirstName, LastName, Email, FirebaseUserId)
+                        INSERT INTO [User] (FirstName, LastName, Email, FirebaseUserId)
                         OUTPUT INSERTED.ID
                         VALUES (@FirstName, @LastName, @Email, @FirebaseUserId)
                     ";
@@ -161,7 +161,7 @@ namespace Project_Management_App.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        UPDATE User
+                        UPDATE [User]
                             SET FirstName = @FirstName,
                                 LastName = @LastName,
                                 Email = @Email
@@ -184,7 +184,7 @@ namespace Project_Management_App.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM User WHERE Id = @Id";
+                    cmd.CommandText = "DELETE FROM [User] WHERE Id = @Id";
                     DbUtils.AddParameter(cmd, "@id", id);
                     cmd.ExecuteNonQuery();
                 }

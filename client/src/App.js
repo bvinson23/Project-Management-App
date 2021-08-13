@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { onLoginStatusChange } from './modules/authManager';
+import { Spinner } from 'reactstrap';
+import ApplicationViews from "./components/ApplicationViews";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+
+  useEffect(() => {
+    onLoginStatusChange(setIsLoggedIn);
+  }, []);
+
+  // The "isLoggedIn" state variable will be null until
+  // the app's connection to firebase has been established.
+  // The bit will be set to true or false by the "onLoginStatusChange" function
+  if (isLoggedIn === null) {
+    // Until we know whether or not the user is Logged in or not just show a spinner
+    return <Spinner className="app-spinner dark"/>;
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        {/* <Header isLoggedIn={isLoggedIn} /> */}
+        <ApplicationViews isLoggedIn={isLoggedIn} />
+      </Router>
     </div>
   );
 }
