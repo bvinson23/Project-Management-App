@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router";
+import { useHistory, Link } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { login } from "../modules/authManager";
 
