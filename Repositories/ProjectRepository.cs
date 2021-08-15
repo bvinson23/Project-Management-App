@@ -21,9 +21,9 @@ namespace Project_Management_App.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT p.Id, p.[Name], p.UserId
+                        SELECT p.Id, p.[Name], p.UserId, p.Number
                         FROM Project p
-                        JOIN User u ON u.Id = p.UserId
+                        JOIN [User] u ON u.Id = p.UserId
                         WHERE u.FirebaseUserId = @FirebaseUserId
                     ";
 
@@ -50,7 +50,7 @@ namespace Project_Management_App.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [Name], UserId
+                        SELECT Id, [Name], UserId, Number
                         FROM Project
                         WHERE Id = @Id
                     ";
@@ -83,13 +83,14 @@ namespace Project_Management_App.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Project (Name, UserId)
+                        INSERT INTO Project (Name, UserId, Number)
                         OUTPUT INSERTED.ID
-                        VALUES (@Name, @UserId)
+                        VALUES (@Name, @UserId, @Number)
                     ";
 
                     DbUtils.AddParameter(cmd, "@Name", project.Name);
                     DbUtils.AddParameter(cmd, "@UserId", project.UserId);
+                    DbUtils.AddParameter(cmd, "@Number", project.Number);
                     project.Id = (int)cmd.ExecuteScalar();
                 }
             }
@@ -105,12 +106,14 @@ namespace Project_Management_App.Repositories
                     cmd.CommandText = @"
                         UPDATE Project
                             SET Name = @Name,
-                                UserId = @UserId
+                                UserId = @UserId,
+                                Number = @Number
                         WHERE Id = @Id
                     ";
 
                     DbUtils.AddParameter(cmd, "@Name", project.Name);
                     DbUtils.AddParameter(cmd, "@UserId", project.UserId);
+                    DbUtils.AddParameter(cmd, "@Number", project.Number);
                     DbUtils.AddParameter(cmd, "@Id", project.Id);
 
                     cmd.ExecuteNonQuery();
@@ -139,6 +142,7 @@ namespace Project_Management_App.Repositories
                 Id = DbUtils.GetInt(reader, "Id"),
                 Name = DbUtils.GetString(reader, "Name"),
                 UserId = DbUtils.GetInt(reader, "UserId"),
+                Number = DbUtils.GetString(reader, "Number"),
             };
         }
     }
