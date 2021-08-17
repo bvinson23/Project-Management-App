@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Container, Row } from "reactstrap";
+import { Card, CardBody, Container, Row } from "reactstrap";
 import { deleteProject } from "../../modules/projectManager";
 
 const Project = ({ project, getProjects }) => {
@@ -12,12 +12,16 @@ const Project = ({ project, getProjects }) => {
             deleteProject(project.id).then(() => getProjects());
         }
     }
-    
+
     return (
         <Container>
-            <Row>{project.name}</Row>
-            <Row>{project.number}</Row>
-            <Row>Earliest Due Date (placeholder)</Row>
+            <Card>
+                <CardBody>
+                    <Row>{project.name}</Row>
+                    <Row>{project.number}</Row>
+                    <Row>09/26/2021 (placeholder)</Row>
+                </CardBody>
+            </Card>
         </Container>
     )
 };
