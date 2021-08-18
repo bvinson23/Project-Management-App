@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project_Management_App.Repositories
 {
-    public class TaskRepository : BaseRepository
+    public class TaskRepository : BaseRepository, ITaskRepository
     {
         public TaskRepository(IConfiguration configuration) : base(configuration) { }
 
