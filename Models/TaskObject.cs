@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Project_Management_App.Models
 {
-    public class Task
+    public class TaskObject
     {
         public int Id { get; set; }
         public int ProjectId { get; set; }
